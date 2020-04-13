@@ -13,25 +13,29 @@ class ViewController: UIViewController {
     private(set) lazy var game = Concentration(numberOfPairsOfCards: numberOfPairsOfCards)
     
     var numberOfPairsOfCards: Int {
-        return cardButtons.count + 1/2
+        return (cardButtons.count + 1)/2
     }
     
-    private(set) var flipCount = 0 {
-        didSet {
-            flipCountLabel.text = "Flips: \(flipCount)"
-        }
-    }
+    private let emojiThemes = [
+        0: ["👻", "🤡", "☃️", "🥶", "🤖", "🎃", "🧞‍♂️", "🧙‍♂️"],
+        1: ["🐶", "🐭", "🐰", "🐹", "🦁", "🦊", "🐻", "🐨"],
+        2: ["🍏", "🍐", "🍊", "🍋", "🍇", "🍒", "🥝", "🍍"],
+        3: ["🥐", "🥯", "🍳", "🥖", "🍔", "🍟", "🍕", "🌭"],
+        4: ["⚽️", "🏈", "🎱", "🏓", "🏹", "🥊", "⛷", "🛷"],
+        5: ["🚗", "🚙", "🚒", "🚜", "🚛", "🚲", "🛴", "🏍"],
+    ]
     
-    private var emojiChoises = ["👻", "🤡", "☃️", "🥶", "🤖", "🎃", "🧞‍♂️"]
+    private lazy var emojiChoises = emojiThemes[emojiThemes.count.arc4random]!
     
     private var emoji = [Int: String]()
     
     @IBOutlet private(set) var cardButtons: [UIButton]!
     
     @IBOutlet weak private var flipCountLabel: UILabel!
-
+    
+    @IBOutlet weak var scoreLabel: UILabel!
+    
     @IBAction func touchCard(_ sender: UIButton) {
-        flipCount += 1
         if let cardNumber = cardButtons.firstIndex(of: sender) {
             game.chooseCard(at: cardNumber)
             updateViewFromModel()
@@ -41,7 +45,9 @@ class ViewController: UIViewController {
     }
     
     @IBAction func newGame() {
-        game = Concentration(numberOfPairsOfCards: numberOfPairsOfCards)
+        game.resetGame()
+        emojiChoises = emojiThemes[emojiThemes.count.arc4random]!
+        emoji = [:]
         updateViewFromModel()
     }
     
@@ -58,6 +64,8 @@ class ViewController: UIViewController {
                 button.backgroundColor = card.isMached ? #colorLiteral(red: 1, green: 0.5763723254, blue: 0, alpha: 0) : #colorLiteral(red: 1, green: 0.5763723254, blue: 0, alpha: 1)
             }
         }
+        flipCountLabel.text = "Flips: \(game.flipCount)"
+        scoreLabel.text = "Score: \(game.score)"
     }
     
     private func emoji(for card: Card) -> String {

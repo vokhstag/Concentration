@@ -33,6 +33,30 @@ class Concentration {
         }
     }
     
+    private(set) var flipCount = 0
+    private(set) var score = 0
+    
+    private var flippedCardsIdentifiers = [Int]()
+    
+    private func addFlippedCardCard(identifier: Int) {
+        if flippedCardsIdentifiers.firstIndex(of: identifier) == nil {
+            flippedCardsIdentifiers.append(identifier)
+        }
+    }
+    private func getScore(lastIndex: Int, firstIndex: Int) {
+        if cards[lastIndex].isMached {
+            score += 2
+        }
+        if flippedCardsIdentifiers.firstIndex(of: cards[lastIndex].identifier) != nil, !cards[lastIndex].isMached {
+            score -= 1
+        }
+        if flippedCardsIdentifiers.firstIndex(of: cards[firstIndex].identifier) != nil, !cards[firstIndex].isMached {
+            score -= 1
+        }
+        addFlippedCardCard(identifier: cards[firstIndex].identifier)
+        addFlippedCardCard(identifier: cards[lastIndex].identifier)
+    }
+    
     func chooseCard(at index: Int ) {
         assert(cards.indices.contains(index), "Concentration.chooseCard(at: \(index)): choosen index not is the cards")
         if !cards[index].isMached {
@@ -42,11 +66,21 @@ class Concentration {
                     cards[index].isMached = true
                 }
                 cards[index].isFaceUp = true
+                getScore(lastIndex: index, firstIndex: matchIndex)
             } else {
                 indexOfOneAndOnlyFaceupCard = index
             }
-            
+            flipCount += 1
         }
+    }
+    
+    func resetGame() {
+        for index in cards.indices {
+            cards[index].isFaceUp = false
+            cards[index].isMached = false
+        }
+        cards.shuffle()
+        
     }
     
     init(numberOfPairsOfCards: Int) {
@@ -55,6 +89,8 @@ class Concentration {
             let card = Card()
             cards += [card, card]
         }
-        //TODO: Shuffle the cards
+        cards.shuffle()
     }
 }
+
+

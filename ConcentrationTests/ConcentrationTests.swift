@@ -84,6 +84,53 @@ class ConcentrationTests: XCTestCase {
         XCTAssert(!sut.cards[3].isFaceUp)
         
     }
+    func testConcentration_whenResetGame_AllCardsNotChoosenAndNotMatched() {
+        //given
+        sut.chooseCard(at: 1)
+        sut.chooseCard(at: 3)
+        sut.resetGame()
+        //when
+        var numberOfChoosenCards = 0
+        var numberOfMachedCards = 0
+        
+        for index in sut.cards.indices {
+            if sut.cards[index].isFaceUp {
+                numberOfChoosenCards += 1
+            }
+            if sut.cards[index].isMached {
+                numberOfMachedCards += 1
+            }
+        }
+        //then
+        XCTAssertEqual(numberOfChoosenCards, 0)
+        XCTAssertEqual(numberOfMachedCards, 0)
+    }
+    func testViewController_whenStarted_flipCountIsZero() {
+        XCTAssertEqual(sut.flipCount, 0)
+    }
+    func testViewController_whenTouchCard_flipCountIncreases() {
+        //when
+        sut.chooseCard(at: 1)
+        
+        //then
+        XCTAssertEqual(sut.flipCount, 1)
+    }
     
-
+    func testConcentration_whemStarted_scoreIsZero() {
+        XCTAssertEqual(sut.score, 0)
+    }
+    func testConcentration_whentwoCardsMached_scoreIsTwoPoints() {
+        
+        sut.chooseCard(at: 0)
+        var secondCardIndex = 0
+        
+        for index in sut.cards.indices {
+            if sut.cards[index].identifier == sut.cards[0].identifier, index != 0 {
+                secondCardIndex = index
+                break
+            }
+        }
+        sut.chooseCard(at: secondCardIndex)
+        XCTAssertEqual(sut.score, 2)
+    }
 }

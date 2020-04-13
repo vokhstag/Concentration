@@ -32,17 +32,7 @@ class ViewControllerTests: XCTestCase {
     }
     
     func testViewController_whenStarted_cardPairsEqualHalfOfCardButtons() {
-        XCTAssertEqual(sut.cardButtons.count + 1/2, sut.numberOfPairsOfCards)
-    }
-    func testViewController_whenStarted_flipCountIsZero() {
-        XCTAssertEqual(sut.flipCount, 0)
-    }
-    func testViewController_whenTouchCard_flipCountIncreases() {
-        //when
-        sut.touchCard(sut.cardButtons[0])
-        
-        //then
-        XCTAssertEqual(sut.flipCount, 1)
+        XCTAssertEqual((sut.cardButtons.count + 1)/2, sut.numberOfPairsOfCards)
     }
     func testViewController_whenTouchCard_cardIsChoosen() {
         //when
@@ -58,26 +48,4 @@ class ViewControllerTests: XCTestCase {
         XCTAssert(!sut.cardButtons[0].title(for: .normal)!.isEmpty)
     }
     
-    func testViewController_whenTouchNewGame_AllCardsNotChoosenAndNotMatched() {
-        //given
-        sut.touchCard(sut.cardButtons[0])
-        sut.touchCard(sut.cardButtons[1])
-        sut.newGame()
-        //when
-        var numberOfChoosenCards = 0
-        var numberOfMachedCards = 0
-        
-        for index in sut.game.cards.indices {
-            if sut.game.cards[index].isFaceUp {
-                numberOfChoosenCards += 1
-            }
-            if sut.game.cards[index].isMached {
-                numberOfMachedCards += 1
-            }
-        }
-        //then
-        XCTAssertEqual(numberOfChoosenCards, 0)
-        XCTAssertEqual(numberOfMachedCards, 0)
-        
-    }
 }

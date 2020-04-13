@@ -10,7 +10,7 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    private lazy var game = Concentration(numberOfPairsOfCards: numberOfPairsOfCards)
+    private(set) lazy var game = Concentration(numberOfPairsOfCards: numberOfPairsOfCards)
     
     var numberOfPairsOfCards: Int {
         return cardButtons.count + 1/2
@@ -39,6 +39,12 @@ class ViewController: UIViewController {
             print("Choosen card is not in cardButtons")
         }
     }
+    
+    @IBAction func newGame() {
+        game = Concentration(numberOfPairsOfCards: numberOfPairsOfCards)
+        updateViewFromModel()
+    }
+    
     
     private func updateViewFromModel() {
         for index in cardButtons.indices {

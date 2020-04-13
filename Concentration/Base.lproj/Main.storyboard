@@ -138,12 +138,24 @@
                                 <color key="textColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oGh-33-xQo">
+                                <rect key="frame" x="136" y="709" width="143" height="48"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <state key="normal" title="New Game">
+                                    <color key="titleColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="newGame" destination="BYZ-38-t0r" eventType="touchUpInside" id="Pn8-cY-wr2"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="RTz-yY-uPF" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="3A5-CO-OtS"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="RTz-yY-uPF" secondAttribute="trailing" constant="16" id="6jk-5d-SGH"/>
+                            <constraint firstItem="EdY-YO-5Ty" firstAttribute="top" secondItem="oGh-33-xQo" secondAttribute="bottom" constant="57" id="BiC-E4-wlX"/>
                             <constraint firstItem="EdY-YO-5Ty" firstAttribute="top" relation="greaterThanOrEqual" secondItem="RTz-yY-uPF" secondAttribute="bottom" constant="8" symbolic="YES" id="U0x-tW-W0p"/>
+                            <constraint firstItem="oGh-33-xQo" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="g9M-bj-gU5"/>
                             <constraint firstItem="EdY-YO-5Ty" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="gT5-I3-p22"/>
                             <constraint firstItem="RTz-yY-uPF" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="jlP-B2-3aT"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="EdY-YO-5Ty" secondAttribute="bottom" id="vwo-3f-TXw"/>
